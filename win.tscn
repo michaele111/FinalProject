@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://brlgbh1ux7eg6"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 368.0
+offset_top = 160.0
+offset_right = 429.0
+offset_bottom = 186.0
+text = "you win"

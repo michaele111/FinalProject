@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://7pi5bk165i7s"]
+
+[ext_resource type="Texture2D" uid="uid://cmk0n17b5hbwf" path="res://items-objects.png" id="1_uyi76"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pi7sd"]
+size = Vector2(16, 16)
+
+[node name="coin" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pi7sd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_uyi76")

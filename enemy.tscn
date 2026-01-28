@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3 uid="uid://df2jmwl7i3lvl"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_c2pum"]
+[ext_resource type="Texture2D" uid="uid://cwovd6egf18td" path="res://enemies.png" id="1_u2tu6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dv8bm"]
+size = Vector2(14, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gd3ay"]
+atlas = ExtResource("1_u2tu6")
+region = Rect2(60, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lawv8"]
+atlas = ExtResource("1_u2tu6")
+region = Rect2(0, 3, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpvwe"]
+atlas = ExtResource("1_u2tu6")
+region = Rect2(30, 3, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6he6f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gd3ay")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lawv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpvwe")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5otfo"]
+size = Vector2(12, 1)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 16
+script = ExtResource("1_c2pum")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_dv8bm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6he6f")
+animation = &"dead"
+
+[node name="floor_checker" type="RayCast2D" parent="."]
+target_position = Vector2(0, 20)
+collision_mask = 2
+
+[node name="top_checker" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="top_checker"]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_5otfo")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="top_checker" to="." method="_on_top_checker_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
